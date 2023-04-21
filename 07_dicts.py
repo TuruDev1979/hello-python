@@ -31,4 +31,23 @@ print("Mouri" in my_dict)
 print(my_dict.items())
 print(my_dict.keys())
 print(my_dict.values())
-print(my_dict.fromkeys())
+
+my_list = ["Nombre", 1, "Piso"]
+
+my_new_dict = dict.fromkeys((my_list))
+print(my_new_dict)
+my_new_dict = dict.fromkeys(("Nombre", 1, "Piso"))
+print(my_new_dict)
+my_new_dict = dict.fromkeys(my_dict)
+print(my_new_dict)
+
+my_new_dict = dict.fromkeys(my_dict, "MoureDev")
+print(my_new_dict)
+
+my_values = my_new_dict.values()
+print(type(my_values))
+
+print(my_new_dict.values())
+print(list(dict.fromkeys(list(my_new_dict.values()))))
+print(tuple(my_new_dict))
+print(set(my_new_dict))
