@@ -2,7 +2,11 @@
 
 import pymysql
 
-mi_conexion = pymysql.connect(host='localhost', user='root', password='', database='pruebas_python')
+try:
+    mi_conexion = pymysql.connect(host='localhost', user='root', password='', database='pruebas_python')
+except: print("Error de conexión con la BBDD")
+
+
 cur = mi_conexion.cursor()
 cur.execute("SELECT nombre, apellidos, edad FROM usuarios")
 
