@@ -1,9 +1,9 @@
 ### Modules ###
 
 # Para que importe todo el módulo
-import my_module
+import Basic.my_module as my_module
 # Para que importe solo una función del módulo
-from my_module import sumValue
+from Basic.my_module import sumValue
 
 my_module.sumValue(5, 7)
 
