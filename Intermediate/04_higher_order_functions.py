@@ -34,17 +34,26 @@ print(list(map(multiply_two, numbers)))
 print(list(map(lambda number: number * 2, numbers)))
 
 # Filter
-def filter_greater_that_ten(number):
+def filter_greater_than_ten(number):
     if number > 10:
         return True
     else:
         return False
 
-print(list(filter(filter_greater_that_ten, numbers)))
+print(list(filter(filter_greater_than_ten, numbers)))
 print(list(filter(lambda number: number > 10, numbers)))
 
 # Reduce
 def sum_two_values(first_value, second_value):
-    return first_value + second_value + third_value
+    print (first_value)
+    print(second_value)
+    return first_value + second_value
 
-reduce(sum_two_values,numbers)
+print(reduce(sum_two_values,numbers))
+
+def mult_two_values(first_value, second_value):
+    print (first_value)
+    print(second_value)
+    return first_value * second_value
+
+print(reduce(mult_two_values,numbers))
