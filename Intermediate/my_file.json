@@ -1,0 +1,13 @@
+{
+  "Nombre": "Juanjo",
+  "Apellido": "Gonzalez",
+  "Edad": "43",
+  "Lenguaje": [
+    "Python",
+    "Kotlin",
+    "Swift",
+    "Cobol",
+    "PHP"
+  ],
+  "WebSite": "https://juanjogonzalez.es"
+}
