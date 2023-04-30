@@ -65,7 +65,7 @@ with open(file="Intermediate/my_file.csv") as my_other_csv:
         print(line)
 
 # .xlsx file
-#import xlrd # Debe instalarse el módulo
+import xlrd # Debe instalarse el módulo
 # 
 # # .xml file
 from xml.dom import minidom
