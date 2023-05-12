@@ -1,15 +1,22 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
 from db.models.user import User
+from db.schemas.user import user_schema, users_schema
+from db.conection import db_conection
 
 router = APIRouter(prefix="/userdb", 
                    tags=["userdb"],
-                   responses={404: {"message":"No encontrado"}})
+                   responses={status.HTTP_404_NOT_FOUND: {"message":"No encontrado"}})
 
 users_list = []
 
-@router.get("/")
+
+
+
+
+# GET
+@router.get("/", response_model=list(User))
 async def users():
-    return users_list
+    return users_schema(db_conection.local.users.find())
 
 @router.get("/{id}") # Path
 async def user(id: int):
@@ -27,16 +34,21 @@ async def user(id: int):
     except:
         return {"error":"No se ha encontrado el usuario"}
     
-# POST
-@router.post("/", status_code=201)
+# POST -- Insertar
+@router.post("/", response_model=User, status_code=status.HTTP_201_CREATED)
 async def user(user: User):
-    if type(search_user(user.id)) == User:
-        raise HTTPException(status_code=204, detail="El suaurio ya existe")
+    if type(search_user_by_username(user.username)) == User:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="El suaurio ya existe")
     else:
-        users_list.append(user)
-        return {"aviso":"Usuario dado de alta"}
-    
-# PUT
+        user_dict = dict(user)
+        del user_dict["id"]
+
+        id = db_conection.local.users.insert_one(user_dict).inserted_id
+        new_user = user_schema(db_conection.local.users.find_one({"_id": id}))
+
+        return User(**new_user)
+
+# PUT -- Actualizar
 @router.put("/")
 async def user(user: User):
     found: bool = False
@@ -67,9 +79,10 @@ async def user(id: int):
         return {"aviso":"Usuario eliminado"}
 
 
-def search_user(id: int):
-    users = filter(lambda user: user.id == id, users_list)
+def search_user_by_username(username: str):
     try:
-        return list(users)[0]
+        user = db_conection.local.users.find_one({"username": username})
+        return User(**user_schema(user))
     except:
         return {"error":"No se ha encontrado el usuario"}
+        
