@@ -5,7 +5,8 @@ from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 # OAuth2PasswordBearer Gestiona la autenticación.
 # OAuth2PasswordRequestForm Forma en la se va a enviar a la api los criterios de autentificación.
 
-router = APIRouter(tags=["basic_auth_user"],
+router = APIRouter(prefix="/basic_auth_user",
+                   tags=["basic_auth_user"],
                    responses={404: {"message":"No encontrado"}})
 
 oauth2 = OAuth2PasswordBearer(tokenUrl="login")
